@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -33,7 +32,7 @@ public class AuthenticationUserDetailsService implements UserDetailsService, Aut
     
     
     @Override
-    public UserInfo register(AuthRegister authRegister) throws Exception {
+    public UserInfo register(AuthRegister authRegister) {
         authenticationRepository.findByEmail(authRegister.getEmail()).ifPresent(userInfo -> {
             throw new UsernameNotFoundException("User already exist");
         });
