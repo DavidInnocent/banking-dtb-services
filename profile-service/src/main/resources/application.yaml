@@ -1,5 +1,17 @@
 
 spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/dtbafrica_db
+    username: davidinnocent
+    password:
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql=true:
+        ddl-auto: update
+
   application:
     name: profile-service
   config:
