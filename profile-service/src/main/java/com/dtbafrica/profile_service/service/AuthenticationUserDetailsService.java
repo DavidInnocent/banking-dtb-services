@@ -86,7 +86,6 @@ public class AuthenticationUserDetailsService implements UserDetailsService, Aut
                 .accessToken(jwtService.generateToken(userDetails.getUsername(),
                         Date.from(Instant.now().plusMillis(1000 * 60 * 60 * 24))))
                 .build();
-        
     }
     
     @Override

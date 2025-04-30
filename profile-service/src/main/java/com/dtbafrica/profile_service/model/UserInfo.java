@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
+@Getter
+@Setter
 @Builder
 @Table(name = "user_info")
 @AllArgsConstructor
@@ -25,30 +27,30 @@ import java.util.stream.Collectors;
 public class UserInfo implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+     Long id;
     
     @NonNull
     @Size(min = 5, max = 60)
-    private String name;
+     String name;
     
     @Email
     @NotNull(message = "Email is required")
     @Column(nullable = false, unique = true)
-    private String email;
+     String email;
     
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
-    private Set<String> roles = new HashSet<>();
+     Set<String> roles = new HashSet<>();
     
     @NotNull(message = "Mobile number is required")
     @NotBlank
     @Column(unique = true)
     @Pattern(regexp = "\\d{12}", message = "Mobile number must be 12 digits")
-    private String phoneNumber;
+     String phoneNumber;
     
     @Size(min = 8, message = "Password should be minimun 8 characters")
-    private String password;
+     String password;
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

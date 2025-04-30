@@ -5,6 +5,7 @@
       <item index="0" class="java.lang.String" itemvalue="org.springframework.boot.test.mock.mockito.MockBean" />
     </list>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>

@@ -123,7 +123,7 @@ class ProfileServiceApplicationTests {
         assertThrows(BadCredentialsException.class, () -> {
             authenticationUserDetailsService.authenticate(
                     AuthLogin.builder()
-                            .email("wrong@example.com")
+                            .email("wrongemailentered@example.com")
                             .password("wrong")
                             .build());
         });

@@ -1,0 +1,27 @@
+
+server:
+  port: 8086
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: event-service
+          uri: lb://event-service
+          predicates:
+            - Path=/events/
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/payment/
+        - id: profile-service
+          uri: lb://profile-service
+          predicates:
+            - Path=/profile/
+        - id: store-service
+          uri: lb://store-service
+          predicates:
+            - Path=/store/

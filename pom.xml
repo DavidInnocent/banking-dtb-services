@@ -15,6 +15,7 @@
         <module>event-service</module>
         <module>payment-service</module>
         <module>store-service</module>
+        <module>api-gateway-service</module>
     </modules>
 
     <properties>

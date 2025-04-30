@@ -1,0 +1,127 @@
+version: "3.9"
+
+services:
+  postgres-profile:
+    image: postgres:15
+    container_name: postgres-profile
+    restart: always
+    environment:
+      POSTGRES_DB: profile_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - profile_data:/var/lib/postgresql/data
+
+  postgres-store:
+    image: postgres:15
+    container_name: postgres-store
+    restart: always
+    environment:
+      POSTGRES_DB: store_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - store_data:/var/lib/postgresql/data
+
+  postgres-payment:
+    image: postgres:15
+    container_name: postgres-payment
+    restart: always
+    environment:
+      POSTGRES_DB: payment_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - payment_data:/var/lib/postgresql/data
+
+  postgres-event:
+    image: postgres:15
+    container_name: postgres-event
+    restart: always
+    environment:
+      POSTGRES_DB: event_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5436:5432"
+    volumes:
+      - event_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672" # management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  profile-service:
+    build: ./profile-service
+    container_name: profile-service
+    depends_on:
+      - postgres-profile
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-profile:5432/profile_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_PROFILES_ACTIVE: docker
+
+  store-service:
+    build: ./store-service
+    container_name: store-service
+    depends_on:
+      - postgres-store
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-store:5432/store_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_PROFILES_ACTIVE: docker
+
+  payment-service:
+    build: ./payment-service
+    container_name: payment-service
+    depends_on:
+      - postgres-payment
+      - rabbitmq
+    ports:
+      - "8083:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-payment:5432/payment_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_PROFILES_ACTIVE: docker
+
+  event-service:
+    build: ./event-service
+    container_name: event-service
+    depends_on:
+      - postgres-event
+      - rabbitmq
+    ports:
+      - "8084:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-event:5432/event_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_PROFILES_ACTIVE: docker
+
+volumes:
+  profile_data:
+  store_data:
+  payment_data:
+  event_data:
+
