@@ -3,7 +3,7 @@
 A modular banking platform built with Spring Boot and Spring Cloud following microservices architecture.
 
 ## 🏗️ Architecture Overview
-![Architecture Diagram](https://res.cloudinary.com/ximmoz-corp/image/upload/v1746020080/images/service_communication.png)
+
 ```mermaid
 graph TD
     A[API Gateway] --> B[Profile Service]
@@ -12,13 +12,14 @@ graph TD
     B --> F[(PostgreSQL)]
     C --> G[(PostgreSQL)]
     D --> H[(PostgreSQL)]
-    D --> E
+    D --> E[Events Service]
     E --> J[(RabbitMQ)]
     style A fill:#4CAF50,stroke:#388E3C
     style B fill:#2196F3,stroke:#1565C0
     style C fill:#FF9800,stroke:#F57C00
     style D fill:#9C27B0,stroke:#7B1FA2
     style E fill:#607D8B,stroke:#455A64
+
 
 # Services
 
