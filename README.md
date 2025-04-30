@@ -11,9 +11,9 @@ graph TD
     A --> D[Payment Service]
     A --> E[Event Service]
     B --> F[(PostgreSQL)]
-    C --> G[(MySQL)]
-    D --> H[(H2)]
-    E --> I[(MongoDB)]
+    C --> G[(PostgreSQL)]
+    D --> H[(PostgreSQL)]
+    D --> E
     E --> J[(RabbitMQ)]
     style A fill:#4CAF50,stroke:#388E3C
     style B fill:#2196F3,stroke:#1565C0
