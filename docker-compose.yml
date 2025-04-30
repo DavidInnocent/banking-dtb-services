@@ -82,7 +82,7 @@ services:
     depends_on:
       - postgres-store
     ports:
-      - "8082:8080"
+      - "8084:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-store:5432/store_db
       SPRING_DATASOURCE_USERNAME: postgres
@@ -111,7 +111,7 @@ services:
       - postgres-event
       - rabbitmq
     ports:
-      - "8084:8080"
+      - "8082:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-event:5432/event_db
       SPRING_DATASOURCE_USERNAME: postgres
