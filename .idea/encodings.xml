@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/config-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/events-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/events-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-service/src/main/java" charset="UTF-8" />
@@ -13,6 +15,8 @@
     <file url="file://$PROJECT_DIR$/registry-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/store-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/store-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/store-value-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/store-value-service/src/main/resources" charset="UTF-8" />
   </component>

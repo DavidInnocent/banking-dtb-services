@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/dtbafrica_db
+    url: jdbc:postgresql://127.0.0.1:5432/dtbafrica_db_store
     username: postgres
     password: postgres
   jpa:
@@ -12,7 +12,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
   application:
-    name: profile-service
+    name: store-service
   config:
     import: "optional:configserver:http://localhost:8088"
 server:

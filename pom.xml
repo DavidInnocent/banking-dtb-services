@@ -12,6 +12,9 @@
         <module>registry-service</module>
         <module>profile-service</module>
         <module>config-server</module>
+        <module>event-service</module>
+        <module>payment-service</module>
+        <module>store-service</module>
     </modules>
 
     <properties>

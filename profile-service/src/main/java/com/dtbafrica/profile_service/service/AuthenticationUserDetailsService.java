@@ -11,8 +11,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 @Service
@@ -42,8 +44,17 @@ public class AuthenticationUserDetailsService implements UserDetailsService, Aut
                 .password(passwordEncoder.encode(authRegister.getPassword()))
                 .name(authRegister.getName())
                 .phoneNumber(authRegister.getPhoneNumber())
-                .roles(new ArrayList<>()).build();
+                .roles(new HashSet<>()).build();
         return authenticationRepository.save(userInfo);
     }
     
+    @Override
+    @Transactional
+    public UserInfo updateUser(Long id, UserInfo user) {
+        UserInfo userInfo =
+                authenticationRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        userInfo.setName(user.getName());
+        userInfo.setPhoneNumber(user.getPhoneNumber());
+        return userInfo;
+    }
 }
