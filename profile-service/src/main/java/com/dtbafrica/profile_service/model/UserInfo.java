@@ -59,6 +59,10 @@ public class UserInfo implements UserDetails {
     public String getUsername() {
         return email;
     }
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
     
     @Override
     public boolean isAccountNonExpired() {

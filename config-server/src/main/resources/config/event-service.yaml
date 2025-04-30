@@ -5,3 +5,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+profile:
+  service:
+    url: http://localhost:8081

@@ -28,7 +28,7 @@ import java.time.Instant;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/user")
 @Slf4j
 public class AuthenticationController {
     @Autowired
@@ -36,37 +36,13 @@ public class AuthenticationController {
     @Autowired
     AuthenticationUserDetailsService authenticationUserDetailsService;
     
-    @Autowired
-    AuthenticationManager authenticationManager;
-    
-    @Autowired
-    RefreshTokenService refreshTokenService;
-    @Autowired
-    JwtService jwtService;
-    
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody AuthLogin authLogin) {
-        UserInfo userDetails = (UserInfo) authenticationUserDetailsService.loadUserByUsername(authLogin.getEmail());
-        Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authLogin.getEmail(),
-                        authLogin.getPassword()));
-        
-        if (authentication.isAuthenticated()) {
-            return generateAuthResponse(userDetails);
-        } else {
+        try{
+            return ResponseEntity.ok(authenticationUserDetailsService.authenticate(authLogin));
+        }catch (Exception e){
             return ResponseEntity.status(401).build();
         }
-    }
-    
-    public ResponseEntity<AuthLoginResponse> generateAuthResponse(UserInfo userDetails) {
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getEmail());
-        AuthLoginResponse authenticationResponse = AuthLoginResponse.builder()
-                .refreshToken(refreshToken.getRefreshToken())
-                .expiration(refreshToken.getExpiration().toString())
-                .accessToken(jwtService.generateToken(userDetails.getUsername(),
-                        Date.from(Instant.now().plusMillis(1000 * 60 * 60 * 24))))
-                .build();
-        return ResponseEntity.ok(authenticationResponse);
     }
     
    
@@ -79,9 +55,15 @@ public class AuthenticationController {
         }
     }
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('CUSTOMER') and #userId == principal.id)")
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('CUSTOMER') and #id == principal.id)")
     public ResponseEntity<UserInfo> updateUser(@PathVariable Long id, @RequestBody UserInfo user) {
         UserInfo updatedUser = authenticationUserDetailsService.updateUser(id, user);
         return ResponseEntity.ok(updatedUser);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<UserInfo> getUser(@PathVariable Long id) {
+        UserInfo updatedUser = authenticationUserDetailsService.getUser(id);
+        return ResponseEntity.ok(updatedUser);
+    }
+    
 }
